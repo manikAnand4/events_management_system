@@ -5,6 +5,7 @@ from events import (
     models as events_models
 )
 
+
 class EventCreateListSerializer(serializers.ModelSerializer):
     """
     Serializer used for event creation and listing.
