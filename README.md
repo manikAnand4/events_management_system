@@ -133,3 +133,6 @@
 
 ## API Docs endpoint
 1. Navigate to `http://localhost:8000/api/docs/#/` for open api swagger docs.
+
+## Running Test Cases
+1. Run `pytest` on your machine to execute the test cases for the application.
