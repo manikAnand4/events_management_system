@@ -11,6 +11,14 @@ class EventCreateListSerializer(serializers.ModelSerializer):
     Serializer used for event creation and listing.
     """
 
+    def validate(self, attrs):
+        # validate if date range is valid
+        if attrs.get('start_time') and attrs.get('end_time'):
+            if attrs['start_time'] >= attrs['end_time']:
+                raise serializers.ValidationError(events_constants.INVALID_TIME_RANGE_MESSAGE)
+        
+        return super().validate(attrs)
+
     class Meta:
         model = events_models.Events
         fields = (
@@ -35,8 +43,8 @@ class EventRegistrationSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = events_models.EventRegistration
-        fields = ('name', 'email', 'event_id', 'id')
-        read_only_fields = ('event_id', 'id')
+        fields = ('name', 'email', 'id')
+        read_only_fields = ('id',)
 
     def validate_email(self, value):
         if events_models.EventRegistration.objects.filter(
